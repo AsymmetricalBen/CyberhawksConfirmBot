@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const app = require('express')();
+require('dotenv').config();
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
@@ -15,12 +16,13 @@ client.on('ready', () => {
 
 client.on('message', msg => {
     let messageText = msg.content;
-    console.log('message from -'+ msg.author.username + ' - Message text - ' + messageText);
 
     if(msg.author.id != '762098796745719809'){
+        console.log('New message from - '+ msg.author.username + ' - Message text - ' + messageText);
         if(emailRe.test(String(messageText).toLowerCase())){
             if(messageText.includes('@ung.edu')){
                 msg.reply('Please check your email to confirm that you are a UNG student');
+                console.log('message is a UNG email address, sending confirmation email.');
                 //TODO come back and write code for AUTH token creation and email sending
                 
             }
@@ -44,5 +46,5 @@ app.get('/*', (req, res) => {
 
 });
 
-client.login(TOKEN);
+client.login();
 app.listen(3000, console.log('server starting on 3000'))
