@@ -21,42 +21,51 @@ client.on('ready', () => {
 });
 
 client.on('message', msg => {
+
     let messageText = msg.content.toLowerCase();
 
-    if(msg.author.id != '762098796745719809' & msg.member.roles.has("764203726134050818")){
+    if(msg.author.id != '762098796745719809'){
         console.log('New message from - '+ msg.author.username + ' - Message text - ' + messageText);
+
         if(emailRe.test(String(messageText).toLowerCase())){
+
             if(messageText.includes('@ung.edu')){
-                msg.reply('Please check your email to confirm that you are a UNG student');
                 console.log('message is a UNG email address, sending confirmation email.');
 
                 userToken = token();
                 console.log("sending token: " + userToken)
                 spawn('python', ['emailsender.py', messageText, userToken])
-                userTokenDict[userToken] = msg.member;
+                userTokenDict[userToken] = msg;
+
+                msg.reply('Please check your email to confirm that you are a UNG student');
 
             }
             else{
                 console.log('message is not a UNG email address, discarding.');
                 msg.reply('Please enter a valid UNG email address.');
+
             }
         }
         else{
             console.log('message is not an email address, discarding.');
             msg.reply('Please enter a valid UNG email address.');
+
         }
     }
 });
 
 app.get('/*', (req, res) => {
-    console.log(req.originalUrl);
-    try {
-        console.log(userTokenDict[req.originalUrl.replace('/', '')]);
-        userTokenDict[req.originalUrl.replace('/', '')].roles.add("764203726134050818")
-        res.send('Email Confirmed')
-    } catch (error) {
-        console.log('error')
-        res.send('something went wrong.')
+    if(req.originalUrl != '/favicon.ico'){
+        try {
+            console.log(userTokenDict[req.originalUrl.replace('/', '')].author.username + ' confirmed their email, adding role')
+            userTokenDict[req.originalUrl.replace('/', '')].member.roles.add("764203726134050818")
+            res.send('Email Confirmed')
+
+        } catch (error) {
+            console.log('error invalid token attempted: ' + req.originalUrl.replace('/', ''))
+            res.send('something went wrong.  Please try again later.')
+
+        }
     }
 
 });
