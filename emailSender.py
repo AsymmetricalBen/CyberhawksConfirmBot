@@ -17,7 +17,7 @@ try:
     server.starttls(context=CONTEXT) 
     server.ehlo() 
     server.login(SENDER_EMAIL, PASSWORD)
-    server.sendmail(SENDER_EMAIL, str(RECIEVER_EMAIL), "Here is the link to confirm you account, http://" + str(IP) + ":3000/" + str(TOKEN))
+    server.sendmail(SENDER_EMAIL, str(RECIEVER_EMAIL), "Here is the link to confirm your account, http://" + str(IP) + ":3000/" + str(TOKEN))
 
 except Exception as e:
     print(e)
