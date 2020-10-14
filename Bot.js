@@ -53,8 +53,8 @@ client.on('message', msg => {
                 console.log('message is a UNG email address, sending confirmation email.');
 
                 userToken = tokenGen();
-                console.log("sending token: " + userToken)
-                spawn('python', ['emailsender.py', messageText, userToken])
+                console.log("sending token: " + userToken);
+                spawn('python', ['emailsender.py', messageText, userToken]);
                 userTokenDict[userToken] = msg.author.id;
 
                 msg.reply('Please check your email to confirm that you are a UNG student');
@@ -68,7 +68,7 @@ client.on('message', msg => {
 
 //
 app.get('/*/test',  (req, res) => {
-    res.send('Good')
+    res.send('Good');
 });
 
 //On request to any suburl
@@ -76,23 +76,23 @@ app.get('/*', (req, res) => {
     if(req.originalUrl != '/favicon.ico'){
 
         //Get token from suburl
-        token = req.originalUrl.replace('/', '')
+        token = req.originalUrl.replace('/', '');
 
         //Try to get matching user from token
         try {
-            userID = userTokenDict[token]
-            user = client.guilds.cache.get('764197891001679872').members.cache.get(userID)
+            userID = userTokenDict[token];
+            user = client.guilds.cache.get('764197891001679872').members.cache.get(userID);
 
-            user.roles.add("764203726134050818")
-            console.log(user.username + ' confirmed their email, adding role')
-            res.send('Email Confirmed')
+            user.roles.add("764203726134050818");
+            console.log(user.username + ' confirmed their email, adding role');
+            res.send('Email Confirmed');
         } 
         catch (error) {
-            console.log('error invalid token attempted: ' + token)
-            res.send('something went wrong.  Please try again later.')
+            console.log('error invalid token attempted: ' + token);
+            res.send('something went wrong.  Please try again later.');
         }        
     }
 });
 
 client.login();
-app.listen(3000, console.log('server starting on 3000'))
+app.listen(3000, console.log('server starting on 3000'));
