@@ -52,14 +52,14 @@ client.on('message', msg => {
     if(msg.channel.type == 'dm' & emailRe.test(String(messageText).toLowerCase()) & messageText.includes('@ung.edu')) {
 
             //if email text includes @ung.edu
-            console.log('message is a UNG email address, sending confirmation email.');
+            console.log('Message is a UNG email address, sending confirmation email.');
 
             //Generate token
             userToken = tokenGen();
 
             //Send email with link containing token
             spawn('python', ['emailsender.py', messageText, userToken]);
-            console.log("sending token: " + userToken);
+            console.log("Sending token: " + userToken);
 
             //Store token to dictionary for later
             //I don't particularly like using a dictionary here, but for the time being it works as a proof of concept
@@ -69,7 +69,7 @@ client.on('message', msg => {
         }
         else if (msg.channel.type == 'dm' & msg.author.id != '762098796745719809'){
 
-            console.log('message is not a UNG email address, discarding.');
+            console.log('Message is not a UNG email address, discarding.');
             msg.reply('Please enter a valid UNG email address.');
         }
 });
@@ -87,10 +87,14 @@ app.get('/*', (req, res) => {
 
         user.roles.add("764203726134050818");
         console.log(user.username + ' confirmed their email, adding role');
+
+        //Boilerplate response for the moment
         res.send('Email Confirmed');
     } 
     catch (error) {
-        console.log('error invalid token attempted: ' + token);
+        console.log('Invalid token attempted: ' + token);
+
+        //Boilerplate response for the moment
         res.send('something went wrong.  Please try again later.');
     }        
 });
