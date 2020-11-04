@@ -19,7 +19,7 @@ const emailRe = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-
 var userTokenDict = {};
 
 //Token generator fuction
-const tokenGen = function() {
+const tokenGen = () => {
     return Math.random().toString(36).substr(2) + Math.random().toString(36).substr(2);
 }
 
@@ -40,7 +40,7 @@ client.on('message', msg => {
 
     //Command used to force users without verrified role to verify their student email
     if(messageText.startsWith('!verifyForceAll')){
-        // TODO add method to index and force all curently unauthized users to verify their email address
+        // TODO index and prompt all curently unauthized users to verify their email address
     }
 
     //Command used for single user to have verification message resent to themselfs 
