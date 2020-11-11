@@ -104,4 +104,10 @@ dist
 .tern-port
 
 #VS code package-lock
-package-lock.json
+package-lock.json'
+
+#VS Code
+.vscode
+
+#O365 Token
+o365_token.txt
