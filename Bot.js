@@ -92,7 +92,7 @@ client.on('message', msg => {
 
 //
 app.get('/favicon.ico', (req, res) => {
-    res.send('icon.jpg')
+    res.send('icon.png');
 });
 
 //On request to any suburl
